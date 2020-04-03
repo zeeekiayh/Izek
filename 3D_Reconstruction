@@ -1,0 +1,144 @@
+from numpy import *
+from math import *
+import random
+
+
+#size of the sample, and
+#   of the reconsturction area
+GLOBAL_size=20
+
+#size of the neighborhood,
+#   the search area
+GLOBAL_n_size=3
+
+
+#create an object to put into the
+#   arrays; it needs to have a
+#   type and a vote count
+class Pixel:
+    #this can be 0 or 1, white or black
+    typ=0
+   
+    #this is to sum all the votes from
+    #   neighbors; + is 1 (white)
+    #   and - is 0 (black)
+    votes=0
+   
+    #define an initializer function
+    def __init__(self,*typ):
+        if (not (typ == 1)):
+            print("Setting type to 0...")
+            self.typ=0
+        else:
+            print("Setting type to 1...")
+            self.typ=1
+       
+        #votes should always start
+        #   out being 0
+        self.votes=0
+    #end __init__
+   
+    def __str__(self):
+        return str(self.typ)+","
+    #end __str__
+   
+    def __repr__(self):
+        return str(self)
+    #end __repr__
+   
+    def SetType(self,typ):
+        if (not (typ == 1)):
+            print("Setting type to 0...")
+            self.typ=0
+        else:
+            print("Setting type to 1...")
+            self.typ=1
+    #end SetType()
+   
+    def AddVote(self,vote):
+        if (not (vote == 1) and not (vote == -1)):
+            print("Can only vote +-1, not "+str(vote)+". Setting vote to 0...")
+        else:
+            self.votes+=vote
+    #end AddVote()
+   
+    def Vote(self):
+        return str(self.votes)
+    #end AddVote()
+
+#end Pixel()
+
+
+#testing the Pixel object
+#   and it's functions
+test1=Pixel(1)
+print(test1.typ)
+test1.SetType(1)
+print(test1.typ)
+test1.AddVote(-1)
+print("votes: "+str(test1.votes))
+print(test1.Vote)
+print(test1)
+
+test2=Pixel()
+print(test2)
+
+
+#OUTPUT:
+
+#Setting type to 0...
+#0
+#Setting type to 1...
+#1
+#votes: -1
+#<bound method Pixel.Vote of 1,>
+#1,
+#Setting type to 0...
+#0,
+
+#==============================================================
+#Everthing will be initially zeros in this 2 dimensional array;
+#   we can edit the types of each 'Pixel' in the array; we need
+#   to create a 2-d "sample" to use to reconstruct a statistic-
+#   ally similar "field" or "sample", which would probably be
+#   created using a 2 dimensional noise function. I don't know
+#   if Python has a pre-defined function--I have only seen ones
+#   built by programmers.
+#==============================================================
+
+class Sample:
+    sample=[]
+    def __init__(self,*size):
+        if (not isinstance(size,int)):
+            size=GLOBAL_size
+       
+        #a 2D array to hold the objects
+        #   initialize the size of the array
+        self.sample=[]
+       
+        for ii in range(0,size):
+
+            #add a second dimenstion to the list
+            self.sample+=[[]]
+
+            #create 'size' elements in that
+            #   second dimension
+            self.sample[ii].extend(range(0,size))
+
+            for jj in range(0,size):
+
+                #add a 'Pixel' object to the index
+                self.sample[ii][jj]=Pixel(0)
+
+            #print(sample[ii])
+
+        #end for()
+       
+    #end __init__()
+   
+    def __repr__(self):
+        return self.sample
+    #end __repr__()
+
+#print(sample)
+
