@@ -126,11 +126,10 @@ class Sample:
                 #debugging: trying to remove an element,
                 #   and then add a 'Pixel' object
                 print(self.sample[ii])
-                delete(self.sample[ii],1)
+                self.sample[ii]=append(delete(self.sample[ii],1),Pixel(0))
                 print(self.sample[ii])
                 
-                #add a 'Pixel' object to the index
-                self.sample[ii]=append(self.sample[ii],Pixel(0))
+            #end for()
 
             #print(sample[ii])
 
