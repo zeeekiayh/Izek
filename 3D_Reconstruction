@@ -109,31 +109,33 @@ print(test2)
 class Sample:
     sample=[]
     def __init__(self,*size):
+        #if 'size' is not a integer,
+        #   use the global variable
         if (not isinstance(size,int)):
             size=GLOBAL_size
-       
+        
         #a 2D array to hold the objects
         #   initialize the size of the array
-        self.sample=[]
-       
+        self.sample=empty((size,size))
+        
+        #fill the array with 'Pixel' objects
         for ii in range(0,size):
-
-            #add a second dimenstion to the list
-            self.sample+=[[]]
-
-            #create 'size' elements in that
-            #   second dimension
-            self.sample[ii].extend(range(0,size))
-
+            
             for jj in range(0,size):
-
+                
+                #debugging: trying to remove an element,
+                #   and then add a 'Pixel' object
+                print(self.sample[ii])
+                delete(self.sample[ii],1)
+                print(self.sample[ii])
+                
                 #add a 'Pixel' object to the index
-                self.sample[ii][jj]=Pixel(0)
+                self.sample[ii]=append(self.sample[ii],Pixel(0))
 
             #print(sample[ii])
 
         #end for()
-       
+        
     #end __init__()
    
     def __repr__(self):
